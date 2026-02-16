@@ -1,0 +1,31 @@
+services:
+  backend-api:
+    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8080 --reload"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    restart: always
+    volumes:
+      - .:/app
+
+  database:
+    image: postgres:13.2-alpine
+    ports:
+      - "8888:5432"
+    env_file:
+      - .env.base
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
+  app_data:
