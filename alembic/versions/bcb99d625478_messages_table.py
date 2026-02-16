@@ -36,19 +36,21 @@ def upgrade() -> None:
     )
     op.execute(
         """
-        INSERT INTO message (text) VALUES (
-            ('Text mock 1'),
-            ('Text mock 2'),
-            ('Text mock 3'),
-            ('Text mock 4'),
-            ('Text mock 5'),
-            ('Text mock 6'),
-            ('Text mock 7'),
-            ('Text mock 8'),
-            ('Text mock 9'),
-            ('Text mock 10'),
-            ('Text mock 11')
-        )
+        INSERT INTO message (id, text) VALUES
+            (1, 'Text mock 1'),
+            (2, 'Text mock 2'),
+            (3, 'Text mock 3'),
+            (4, 'Text mock 4'),
+            (5, 'Text mock 5'),
+            (6, 'Text mock 6'),
+            (7, 'Text mock 7'),
+            (8, 'Text mock 8'),
+            (9, 'Text mock 9'),
+            (10, 'Text mock 10'),
+            (11, 'Text mock 11');
+        
+        -- Обновляем sequence
+        SELECT SETVAL('message_id_seq', (SELECT MAX(id) FROM message), TRUE);
         """
     )
     # ### end Alembic commands ###

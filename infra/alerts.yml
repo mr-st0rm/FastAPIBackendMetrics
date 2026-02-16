@@ -1,0 +1,12 @@
+groups:
+  - name: http-alerts
+    rules:
+      - alert: HighHttpLatency
+        expr: |
+          histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[1m])) by (le, path)) > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High HTTP latency detected on {{ $labels.path }}"
+          description: "95th percentile latency for endpoint {{ $labels.path }} is above 1s for more than 2 minutes."
