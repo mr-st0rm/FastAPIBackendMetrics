@@ -97,6 +97,7 @@ sum(rate(http_requests_total{status=~"4..|5.."}[1m]))
   - Секреты (пароли, токены) через Docker secrets / Vault.
   - HTTPS/TLS для API.
   - Rate-limiting и authentication для публичных эндпоинтов.
+  - Вынос настройки портов и других переменных для настройки БД/сервисов в переменные окружения
 - DevOps и CI/CD
   - Настроить GitHub Actions / GitLab CI для:
     - Линтинга кода
