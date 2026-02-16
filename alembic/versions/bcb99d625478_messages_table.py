@@ -34,6 +34,23 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=True),
         sa.PrimaryKeyConstraint("id"),
     )
+    op.execute(
+        """
+        INSERT INTO message (text) VALUES (
+            ('Text mock 1'),
+            ('Text mock 2'),
+            ('Text mock 3'),
+            ('Text mock 4'),
+            ('Text mock 5'),
+            ('Text mock 6'),
+            ('Text mock 7'),
+            ('Text mock 8'),
+            ('Text mock 9'),
+            ('Text mock 10'),
+            ('Text mock 11')
+        )
+        """
+    )
     # ### end Alembic commands ###
 
 
